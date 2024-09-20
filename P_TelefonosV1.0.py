@@ -18,10 +18,10 @@ Entonces siempre que se cuelgue el auricular se detendrá el audio por completo
 
 2.El audio se repetirá en bucle siempre que esté descolgado el auricular.
 
-3.El timbre sonará solo si esta colgado el auricular y sonara en periodos de entre 10 a 30 minutos dado un numero aleatorio 
+3.El timbre sonará solo si esta colgado el auricular y sonara en periodos de entre 20 a 40 minutos dado un numero aleatorio 
 (este rango se puede configurar con las variables "tiempoInferior" y "tiempoSuperior").
 
-4. El timbre sonará máximo 20 segundos (se puede configurar con la variable "tiempoEncendidoTimbre") . 
+4. El timbre sonará máximo 6 segundos (se puede configurar con la variable "tiempoEncendidoTimbre") . 
 Sino se levanta el auricular en dicho periodo el timbre se apaga 
 y se genera un nuevo numero aleatorio para el periodo de espera entre sonidos del timbre.
 """
@@ -38,11 +38,11 @@ periodo = 0.1 #Periodo de la onda sinusoidal simulada [s]
 tiempoParada = 1.5 #Tiempo de silencio entre sonidos del timbre [s]
 ciclos = 20 #Modifica la duracion del sonido del timbre ---> Duracion[s]=periodo*ciclos (0.1*20 = 2s)
 
-tiempoEncendidoTimbre = 20 #segundos / Tiempo maximo de duración del sonido del timbre
+tiempoEncendidoTimbre = 6 #segundos / Tiempo maximo de duración del sonido del timbre
 
 #Tiempo aleatorio comprendido en un rango que transcurre entre colgar el telefono y sonar el timbre de nuevo
-tiempoInferior= 600 #10 minutos
-tiempoSuperior= 1800 #30 minutos
+tiempoInferior= 1200 #20 minutos
+tiempoSuperior= 2400 #40 minutos
 tiempoAleatorio = random.randint(tiempoInferior, tiempoSuperior) #segundos 
 tiempoEntreEvento = tiempoAleatorio # segundos 
 
@@ -109,8 +109,8 @@ if __name__ == '__main__':
 
             current_s = time.time()
 
-            #Si está colocado el auricular y transcurre el tiempo (tiempoEntreEvento) comienza a sonar el timbre   
-            if current_s > prev_s + tiempoEntreEvento and GPIO.input(PinAur) == GPIO.HIGH:  
+            #Si está colocado el auricular , transcurre el tiempo (tiempoEntreEvento) y si no está sonando el audio entonces comienza a sonar el timbre   
+            if current_s > prev_s + tiempoEntreEvento and GPIO.input(PinAur) == GPIO.HIGH and not pygame.mixer.music.get_busy():  
                 detener_hilo = False #Comienza a sonar el timbre
                 prev_s = current_s  # Actualiza prev_s
                 tiempoAleatorio = random.randint(tiempoInferior, tiempoSuperior) #segundos  
