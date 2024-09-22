@@ -18,4 +18,4 @@ https://www.pygame.org/docs/ref/music.html
 <h2>Diagrama de conexiones</h2>
 
 
-![DIAGRAMA_TELÉFONO](https://github.com/user-attachments/assets/11337c9f-a460-48c8-8913-2757c22893ea)
+![Diagrama de conexiones](https://github.com/user-attachments/assets/5e895e54-00aa-461b-adfa-26c678601232)
